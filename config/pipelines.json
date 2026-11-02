@@ -1,0 +1,17 @@
+[
+  {
+    "dag_id": "orders_pipeline",
+    "schedule": "@daily",
+    "start_date": "2026-09-25",
+    "catchup": true,
+    "input_dir_variable": "orders_input_dir",
+    "file_prefix": "orders_",
+    "file_ext": ".csv",
+    "postgres_conn_id": "db_conn",
+    "retries": 2,
+    "retry_delay_minutes": 1,
+    "sensor_timeout_seconds": 60,
+    "sla_minutes": 30,
+    "task_timeout_minutes": 30
+  }
+]
