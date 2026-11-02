@@ -1,10 +1,10 @@
-# 📦 Order Scheduler — Airflow ETL Pipeline
+# Order Scheduler — Airflow ETL Pipeline
 
 An Apache Airflow DAG that automates daily ingestion of order CSV files into a PostgreSQL database. It validates incoming data, avoids duplicate loads, and gracefully tracks processing status — all driven by a JSON config file for easy multi-pipeline scaling.
 
 ---
 
-## 🗂️ Project Structure
+## Project Structure
 
 ```
 order_scheduler/
@@ -15,7 +15,7 @@ order_scheduler/
 
 ---
 
-## ⚙️ How It Works
+## How It Works
 
 Each entry in `config/pipelines.json` generates a separate Airflow DAG. The pipeline for each DAG follows these steps:
 
@@ -35,7 +35,7 @@ wait_for_file → validate → check_duplicate_file → load → done
 
 ---
 
-## 🗃️ Database Tables Required
+## Database Tables Required
 
 ```sql
 -- Orders table
@@ -57,7 +57,7 @@ CREATE TABLE processed_files (
 
 ---
 
-## 🔧 Configuration (`config/pipelines.json`)
+## Configuration (`config/pipelines.json`)
 
 ```json
 [
@@ -94,7 +94,7 @@ CREATE TABLE processed_files (
 
 ---
 
-## 🚀 Setup & Prerequisites
+## Setup & Prerequisites
 
 ### 1. Airflow Connections
 
@@ -118,7 +118,7 @@ pip install apache-airflow-providers-standard
 
 ---
 
-## 📄 Expected CSV Format
+## Expected CSV Format
 
 Files must be named `orders_YYYY-MM-DD.csv` and contain these columns:
 
@@ -139,7 +139,7 @@ order_id,customer_id,product,amount,order_date
 
 ---
 
-## 🔁 Adding More Pipelines
+## Adding More Pipelines
 
 To add a second pipeline (e.g. for returns), simply append a new entry to `pipelines.json`:
 
@@ -167,7 +167,7 @@ No code changes needed — a new DAG will appear in the Airflow UI automatically
 
 ---
 
-## 🛡️ Error Handling
+## Error Handling
 
 - **Validation failures** → `AirflowFailException` (no retries, bad data won't be retried)
 - **Load failures** → Transaction is rolled back, failure recorded in `processed_files`
@@ -176,6 +176,6 @@ No code changes needed — a new DAG will appear in the Airflow UI automatically
 
 ---
 
-## 📝 License
+## License
 
 MIT
